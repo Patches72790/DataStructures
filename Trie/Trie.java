@@ -1,3 +1,10 @@
+/**
+ * This file contains the program code for the Trie data structure
+ * that can find all common prefixes of the given words contained therein.
+ * 
+ * @author Patrick Harvey
+ */
+
 import java.util.Map;
 import java.util.HashMap;
 import java.util.List;
@@ -9,12 +16,11 @@ import java.util.stream.Collectors;
  * This class contains a basic retrieval tree (Trie) data structure
  * supporting the basic methods insert, remove, and contains all 
  * with the performance of linear time  with regard to the size
- * of each string in question ( O (size of word)). 
- *
+ * of each string in question ( Big-Oh (size of word)). 
  *
  * @author Patrick
  */ 
-public class Trie {
+public class Trie implements Dictionary {
 
     private TrieNode root;
     private int size;
@@ -209,12 +215,13 @@ public class Trie {
             }
         }
 
-
+        // container for storing suffixes found
         ArrayList<String> suffixList = new ArrayList<>();
 
+        // make recursive call to find all suffixes based on prefix given
         findAllStrings("", suffixList, currentNode);
             
-
+        // return list of full words with prefix appended to suffix
         return suffixList.stream().map(suffix -> prefix + suffix).collect(Collectors.toList());
     }
 
@@ -223,8 +230,9 @@ public class Trie {
      * in order to find all of the substrings within the Trie from
      * a given subTrie node.
      *
+     * @param currentSuffix the suffix currently being built from Trie
+     * @param suffixList reference to the list being added to with complete suffixes
      * @param subTrie a trie node representing a sub trie of the Trie
-     * @return a substring of chars contained with the subtrie
      */
     private void findAllStrings(String currentSuffix, ArrayList<String> suffixList, TrieNode subTrie) {
 
@@ -239,10 +247,11 @@ public class Trie {
         }
 
         // recursive case searches through all sub trie nodes
+        // via depth first approach by descending into
+        // successive children and incrementally building up suffix
         Set<Character> subChildren = subTrie.getChildren().keySet();
         for (char currentLetter : subChildren) {
             findAllStrings(currentSuffix + currentLetter, suffixList, subTrie.getChildren().get(currentLetter));
-
         }
     }
 }
