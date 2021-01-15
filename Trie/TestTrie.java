@@ -3,6 +3,7 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 
@@ -24,13 +25,16 @@ public class TestTrie {
         trie.insert("peach");
         trie.insert("earth");
 
-        ArrayList<String> commonPrefixes = trie.findCommonPrefix("ea");
+        List<String> commonPrefixes = trie.findCommonPrefix("ea");
         ArrayList<String> expected = new ArrayList<>(Arrays.asList( "each", "ear", "earth", "eat"));
         
         assertEquals("Error", expected, commonPrefixes);
 
-
     }
+
+    
+
+
 
 
 }

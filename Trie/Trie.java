@@ -1,8 +1,9 @@
 import java.util.Map;
 import java.util.HashMap;
+import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
-
+import java.util.stream.Collectors;
 
 /**
  * This class contains a basic retrieval tree (Trie) data structure
@@ -192,11 +193,10 @@ public class Trie {
      * @param prefix the prefix to be searched from
      * @return an array list of strings contained within Trie from given prefix
      */
-    public ArrayList<String> findCommonPrefix(String prefix) {
+    public List<String> findCommonPrefix(String prefix) {
         
         // find last letter of prefix for searching
         char[] prefixArray = prefix.toCharArray();
-        ArrayList<String> commonPrefixes = new ArrayList<>();
         TrieNode currentNode = root;
 
         // descend through Trie to find subtrie containing children 
@@ -209,24 +209,13 @@ public class Trie {
             }
         }
 
-        
+
         ArrayList<String> suffixList = new ArrayList<>();
 
-        // depth first search through sub trie to find all postfixes
-        Set<Character> subTrieCharSet = currentNode.getChildren().keySet();
-        for (char currentLetter : subTrieCharSet) {
+        findAllStrings("", suffixList, currentNode);
+            
 
-            String postFix = String.valueOf(currentLetter);
-            TrieNode nextNode = currentNode.getChildren().get(currentLetter);
-
-            postFix += findAllStrings(nextNode);
-
-            //append prefix to postfix and add to list
-            commonPrefixes.add("" + prefix + postFix);
-
-        }
-
-        return commonPrefixes;
+        return suffixList.stream().map(suffix -> prefix + suffix).collect(Collectors.toList());
     }
 
     /**
@@ -237,29 +226,24 @@ public class Trie {
      * @param subTrie a trie node representing a sub trie of the Trie
      * @return a substring of chars contained with the subtrie
      */
-    private String findAllStrings(TrieNode subTrie) {
+    private void findAllStrings(String currentSuffix, ArrayList<String> suffixList, TrieNode subTrie) {
 
-        if ()
-
+        // if end of word found, add suffix to list
+        if (subTrie.isAtEndOfWord()) {
+            suffixList.add(currentSuffix);
+        }
 
         // base case is that subtrie is a leaf 
         if (subTrie.isLeaf() ) {
-            return ""; 
+            return; 
         }
-
 
         // recursive case searches through all sub trie nodes
-        // and collects chars into string postfix
         Set<Character> subChildren = subTrie.getChildren().keySet();
-        String postFix = "";
-
         for (char currentLetter : subChildren) {
-
-            postFix = String.valueOf(currentLetter);
-            postFix += findAllStrings(subTrie.getChildren().get(currentLetter));
+            findAllStrings(currentSuffix + currentLetter, suffixList, subTrie.getChildren().get(currentLetter));
 
         }
-        return postFix;
     }
 }
 
