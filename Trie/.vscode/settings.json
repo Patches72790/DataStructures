@@ -1,0 +1,7 @@
+{
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "/home/patroclus/Nextcloud/UWM-Stuff/Classes/CS Certificate Courses/DataStructures/**/*.jar",
+        "/home/patroclus/Nextcloud/UWM-Stuff/Classes/CS Certificate Courses/DataStructures/junit5.jar"
+    ]
+}
