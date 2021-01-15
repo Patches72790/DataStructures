@@ -5,13 +5,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.junit.jupiter.api.BeforeEach;
-
 public class TestTrie {
     
 
     @Test
-    public void testInsert() {
+    public void testCommonPrefixes() {
 
         Trie trie = new Trie();
     
@@ -32,9 +30,52 @@ public class TestTrie {
 
     }
 
+    @Test
+    public void testEmptyCommonPrefixes() {
+
+        Trie trie = new Trie();
     
+        trie.insert("each");
+        trie.insert("eat");
+        trie.insert("ear");
+        trie.insert("earth");
+        trie.insert("port");
+        trie.insert("porter");
+        trie.insert("portly");
+        trie.insert("poor");
+        trie.insert("peet");
+        trie.insert("pear");
+        trie.insert("peach");
 
+        
+        List<String> commonPrefixes = trie.findCommonPrefix("po");
+        ArrayList<String> expected = new ArrayList<>(Arrays.asList( "poor", "port", "porter", "portly" ));
+        
+        assertEquals("Error", expected, commonPrefixes);
 
+    }
 
+    @Test
+    public void testEmptyPrefix() {
+        Trie trie = new Trie();
+    
+        trie.insert("each");
+        trie.insert("eat");
+        trie.insert("ear");
+        trie.insert("earth");
+        trie.insert("port");
+        trie.insert("porter");
+        trie.insert("portly");
+        trie.insert("poor");
+        trie.insert("peet");
+        trie.insert("pear");
+        trie.insert("peach");
 
+        
+        List<String> commonPrefixes = trie.findCommonPrefix("");
+        ArrayList<String> expected = new ArrayList<>(Arrays.asList( "each", "ear", "earth", "eat", 
+             "peach", "pear", "peet", "poor", "port", "porter", "portly"));
+        
+        assertEquals("Error", expected, commonPrefixes);
+    }
 }
