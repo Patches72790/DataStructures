@@ -15,8 +15,8 @@ import java.util.Set;
  */ 
 public class Trie {
 
-    public TrieNode root;
-    public int size;
+    private TrieNode root;
+    private int size;
  
     static class TrieNode {
         
@@ -80,6 +80,10 @@ public class Trie {
         root = new TrieNode();
         size = 0;
         this.insert(word);
+    }
+
+    public int size() {
+        return size;
     }
 
     /**
@@ -205,6 +209,9 @@ public class Trie {
             }
         }
 
+        
+        ArrayList<String> suffixList = new ArrayList<>();
+
         // depth first search through sub trie to find all postfixes
         Set<Character> subTrieCharSet = currentNode.getChildren().keySet();
         for (char currentLetter : subTrieCharSet) {
@@ -231,6 +238,10 @@ public class Trie {
      * @return a substring of chars contained with the subtrie
      */
     private String findAllStrings(TrieNode subTrie) {
+
+        if ()
+
+
         // base case is that subtrie is a leaf 
         if (subTrie.isLeaf() ) {
             return ""; 
