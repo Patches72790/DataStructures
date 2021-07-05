@@ -4,7 +4,8 @@ import java.util.List;
 import java.util.Queue;
 
 /**
- * This class is my own test implementation of a directed/undirected graph.
+ * This class is my own test implementation of a directed/undirected graph. This
+ * Graph class also contains implementaions of DFS, BFS, Cycle Detection, and topological Sort!
  * 
  * @author Patrick Harvey
  */
@@ -276,7 +277,15 @@ public class Graph<T extends Comparable<T>> {
         System.out.println();
     } 
 
-
+    /**
+     * This method is used for helping produce a topological sort (total ordering)
+     * of the elements of this graph.
+     * 
+     * Algorithm: The algorithm uses a DFS on every node of the current graph
+     * until it finds the final element (element at which no other vertex points),
+     * then it adds this to the top of a stack until it returns to the initial element.
+     *
+     */
     public void topSortHelper(GraphNode<T> node) {
 
         // if node is already finished, return
