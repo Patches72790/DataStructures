@@ -101,7 +101,6 @@ public class Trie implements Dictionary {
     public void insert(String word) { 
     
         char[] lettersArray = word.toCharArray();
-        int length = word.length();
 
         // starting node to check
         TrieNode currentNode = root;
